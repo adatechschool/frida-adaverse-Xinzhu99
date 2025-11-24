@@ -16,11 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="bg-amber-300 flex justify-between p-4 text-xl">
-          <Link href="/">Profolio</Link>
-          <Link href="/addProject">Proposer un projet</Link>
 
-        </div>
         {children}
       </body>
     </html>
