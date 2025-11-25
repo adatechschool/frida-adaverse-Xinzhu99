@@ -208,3 +208,11 @@ Une **seed** permet d’ajouter des données de base dans la base de données.
 
 ![](./home-figma.png)
 ![](./details-figma.png)
+
+## Avancement du projet 
+24/11
+- compréhension et clarification de l'énoncé 
+- conception et modélisation des tables de la BDD
+- création projet Neon et connexion et installation projet Next.js
+- création schema.ts Drizzle et migration data en utilisant des seeds
+- création Navbar avec bouton "proposer un projet" qui déclenche le pop-up formulaire
