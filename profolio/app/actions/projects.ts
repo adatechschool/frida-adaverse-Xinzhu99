@@ -5,10 +5,20 @@ import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db/drizzle";
 
 //function qui permet d'envoyer les infos formulaire pour les projets
+
+//1- récupérer les data, vérification => Object.fromEntries() permet de récupérer tout le champ formulaire
+//2- retourne status et message au front
 export default async function submitProject(formData: FormData) {
   const newProject = Object.fromEntries(formData);
-  console.log("wawawawa", newProject.title);
+//   console.log("Bravo", newProject);
   try {
+    if(typeof newProject.title !== "string"|| !newProject.title.trim()
+    || typeof newProject.gitHub !== "string"|| !newProject.gitHub.trim()
+    || typeof newProject.demo !== "string"|| !newProject.demo.trim())
+        {           
+        return {success: false, message:"Champs manquants"}
+    }
+
     await db
       .insert(projects)
       .values({
@@ -20,9 +30,10 @@ export default async function submitProject(formData: FormData) {
       })
       .returning();
 
-    return;
+    return { success: true, message:"Projet ajouté !"}
   } catch (error) {
-    console.error("Problème API lors de l'ajout du formulaire", error);
+    return { success: false, message: "Problème API lors de l'ajout du formulaire"}
   }
+
   revalidatePath("/");
 }
