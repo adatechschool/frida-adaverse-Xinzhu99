@@ -216,3 +216,9 @@ Une **seed** permet d’ajouter des données de base dans la base de données.
 - création projet Neon et connexion et installation projet Next.js
 - création schema.ts Drizzle et migration data en utilisant des seeds
 - création Navbar avec bouton "proposer un projet" qui déclenche le pop-up formulaire
+25/11
+- création du formulaire avec deux menus déroulant dynamique (action getCategories & getClasses)
+- création action SubmitProject intégré dans le formulaire 
+- gestion d'erreur : champs vides et non string de l'action submitProject
+- méthode recevoir le status et message du back pour maj en front : onSubmit={handleSumbit}
+- WIP : action getProjects pas encore trouvé la méthode pour Groupby
