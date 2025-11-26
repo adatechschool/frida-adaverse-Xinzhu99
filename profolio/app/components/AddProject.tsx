@@ -1,14 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useActionState } from "react";
 import { getCategories } from "../actions/categories";
 import { getClass } from "../actions/classes";
 import submitProject from "../actions/projects";
+
+
 
 export default function AddProject() {
   const [showModal, setShowModal] = useState(false);
   const [categories, setCategories] = useState([]);
   const [classes, setClasses] = useState([])
-  const [message, setMessage] = useState("")
+  //useActionState :
+  const [message, formAction] = useActionState(submitProject, null)
 
 //utiliser le hook useEffect pour appeler kes fonctions "actions"
   useEffect(() => {
@@ -16,13 +19,14 @@ export default function AddProject() {
     getClass().then(setClasses)
   }, []);
 
-  const handleSubmit =  async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const result =  await submitProject(formData)
-    console.log(result)
-    setMessage(result.message)
-  }
+  // const handleSubmit =  async (e) => {
+  //   e.preventDefault()
+  //   const formData = new FormData(e.target)
+  //   const result =  await submitProject(formData)
+  //   console.log(result)
+  //   setMessage(result.message)
+  //   setStatus(result.success)
+  // }
 
   return (
     <>
@@ -45,7 +49,7 @@ export default function AddProject() {
           <form
             className="form bg-white p-6 rounded-lg max-w-md w-full flex flex-col gap-4"
             onClick={(e) => e.stopPropagation()}
-            onSubmit={handleSubmit}
+            action={formAction}
           >
             <h1>Proposer un projet</h1>
             <button

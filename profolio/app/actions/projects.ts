@@ -8,7 +8,7 @@ import { db } from "@/lib/db/drizzle";
 
 //1- récupérer les data, vérification => Object.fromEntries() permet de récupérer tout le champ formulaire
 //2- retourne status et message au front
-export default async function submitProject(formData: FormData) {
+export default async function submitProject(prevState, formData: FormData) {
   const newProject = Object.fromEntries(formData);
 //   console.log("Bravo", newProject);
   try {
@@ -16,7 +16,7 @@ export default async function submitProject(formData: FormData) {
     || typeof newProject.gitHub !== "string"|| !newProject.gitHub.trim()
     || typeof newProject.demo !== "string"|| !newProject.demo.trim())
         {           
-        return {success: false, message:"Champs manquants"}
+        return "Champs manquants"
     }
 
     await db
@@ -29,11 +29,11 @@ export default async function submitProject(formData: FormData) {
         class_id: parseInt(newProject.classes),
       })
       .returning();
+      revalidatePath("/");
 
-    return { success: true, message:"Projet ajouté !"}
+    return "Projet ajouté !"
   } catch (error) {
-    return { success: false, message: "Problème API lors de l'ajout du formulaire"}
+    return "Problème API lors de l'ajout du formulaire"
   }
 
-  revalidatePath("/");
 }
