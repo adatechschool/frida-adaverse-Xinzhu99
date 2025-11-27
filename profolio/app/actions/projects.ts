@@ -1,13 +1,14 @@
 "use server";
 
 import { projects } from "@/lib/db/schema";
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import { db } from "@/lib/db/drizzle";
+import { redirect } from "next/navigation";
 
 //function qui permet d'envoyer les infos formulaire pour les projets
 
 //1- récupérer les data, vérification => Object.fromEntries() permet de récupérer tout le champ formulaire
-//2- retourne status et message au front
+//2- retourne le message au front
 export default async function submitProject(prevState, formData: FormData) {
   const newProject = Object.fromEntries(formData);
 //   console.log("Bravo", newProject);
@@ -30,10 +31,10 @@ export default async function submitProject(prevState, formData: FormData) {
       })
       .returning();
       revalidatePath("/");
-
-    return "Projet ajouté !"
-  } catch (error) {
-    return "Problème API lors de l'ajout du formulaire"
+      
+      return "Projet ajouté !"
+    } catch (error) {
+      return "Problème API lors de l'ajout du formulaire"
+    }
   }
-
-}
+  

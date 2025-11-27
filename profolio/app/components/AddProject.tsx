@@ -4,20 +4,29 @@ import { getCategories } from "../actions/categories";
 import { getClass } from "../actions/classes";
 import submitProject from "../actions/projects";
 
-
-
 export default function AddProject() {
   const [showModal, setShowModal] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [classes, setClasses] = useState([])
-  //useActionState :
-  const [message, formAction] = useActionState(submitProject, null)
+  const [classes, setClasses] = useState([]);
 
-//utiliser le hook useEffect pour appeler kes fonctions "actions"
+  //useActionState permet de recevoir le statu et le message du back suite à une action :
+  //const [initialVariable, formAction] = useActionState(ationName, initialState)
+  const [message, formAction] = useActionState(submitProject, null);
+
+  //utiliser le hook useEffect pour appeler les fonctions "actions"
   useEffect(() => {
     getCategories().then(setCategories);
-    getClass().then(setClasses)
+    getClass().then(setClasses);
   }, []);
+
+  //utiliser useEffect pour détecter le message et fermer le modal
+  useEffect(() => {
+    if (message === "Projet ajouté !") {
+      setTimeout(() => {
+        setShowModal(false);
+      }, 1000);
+    }
+  }, [message]);
 
   // const handleSubmit =  async (e) => {
   //   e.preventDefault()
@@ -95,7 +104,11 @@ export default function AddProject() {
               <label htmlFor="class">Promo Ada :</label>
               <select name="classes" id="classes" required>
                 {classes.map((item) => {
-                  return <option key={item.id} value={item.id}>{item.name}</option>;
+                  return (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>
@@ -104,13 +117,21 @@ export default function AddProject() {
               <label htmlFor="categories">Projets Ada :</label>
               <select name="categories" id="categories" required>
                 {categories.map((item) => {
-                  return <option key={item.id} value={item.id}>{item.name}</option>;
+                  return (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  );
                 })}
               </select>
             </div>
 
-            <button type="submit" className="bg-blue-400 p-2 rounded-2xl hover:bg-amber-600 cursor-pointer"
-            >Envoyer</button>
+            <button
+              type="submit"
+              className="bg-blue-400 p-2 rounded-2xl hover:bg-amber-600 cursor-pointer"
+            >
+              Envoyer
+            </button>
             <p className="text-green-600">{message}</p>
           </form>
         </div>

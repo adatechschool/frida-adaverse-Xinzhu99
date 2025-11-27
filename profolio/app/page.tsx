@@ -27,7 +27,7 @@ export default async function Home() {
   return (
     <div>
       {data.rows.map((row)=> (
-        <div dummy key={row.category} className="p-6">
+        <div key={row.category} className="p-6">
           <h1 className="text-blue-700 text-3xl">{row.category}</h1>
           <div className="flex gap-4 p-4 flex-wrap">
              {row.projects.map((project)=> (
