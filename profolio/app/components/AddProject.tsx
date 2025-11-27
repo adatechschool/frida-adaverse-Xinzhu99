@@ -44,8 +44,8 @@ export default function AddProject() {
   return (
     <>
       <button
-        onClick={() => setShowModal(true)}
-        className="bg-blue-400 p-2 rounded-2xl hover:bg-amber-600 cursor-pointer"
+        onClick={() => setShowModal(true)} 
+        className="bg-black text-white py-2 px-5 rounded-4xl hover:bg-pink-300 cursor-pointer"
       >
         Proposer un projet
       </button>
@@ -132,7 +132,7 @@ export default function AddProject() {
 
             <button
               type="submit"
-              className="bg-blue-400 p-2 rounded-2xl hover:bg-amber-600 cursor-pointer"
+              className="bg-black text-white p-2 rounded-4xl hover:bg-pink-300 cursor-pointer"
             >
               Envoyer
             </button>
