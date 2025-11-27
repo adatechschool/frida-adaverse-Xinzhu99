@@ -23,7 +23,7 @@ export default async function submitProject(prevState, formData: FormData) {
     await db
       .insert(projects)
       .values({
-        title: newProject.title,
+        title: (newProject.title).charAt(0).toUpperCase() + (newProject.title).slice(1),
         gitHub_link: newProject.gitHub,
         demo_link: newProject.demo,
         category_id: parseInt(newProject.categories),

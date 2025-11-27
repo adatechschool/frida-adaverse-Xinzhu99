@@ -13,9 +13,13 @@ export default function AddProject() {
   //const [initialVariable, formAction] = useActionState(ationName, initialState)
   const [message, formAction] = useActionState(submitProject, null);
 
-  //utiliser le hook useEffect pour appeler les fonctions "actions"
+  //les actions get sont similaires de APIs externes: utiliser useEffect pour recevoir data
+  const loadCats = async () => {
+      const allCats = await getCategories()
+      setCategories(allCats);
+  }
   useEffect(() => {
-    getCategories().then(setCategories);
+    loadCats()
     getClass().then(setClasses);
   }, []);
 
