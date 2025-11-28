@@ -56,7 +56,7 @@ export default function AddProject() {
 
       {showModal && (
         <div
-          className="modalContainer fixed inset-0 bg-black bg-opacity-25 flex flex-col justify-center items-center p-10 z-50"
+          className="modalContainer fixed inset-0 bg-black/80 flex flex-col justify-center items-center p-10 z-50"
           onClick={() => setShowModal(false)}
         >
           <form

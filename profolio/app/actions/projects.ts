@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 //2- retourne le message au front
 export default async function submitProject(prevState, formData: FormData) {
   const newProject = Object.fromEntries(formData);
-//   console.log("Bravo", newProject);
+  console.log("Bravo", newProject);
   try {
     if(typeof newProject.title !== "string"|| !newProject.title.trim()
     || typeof newProject.gitHub !== "string"|| !newProject.gitHub.trim()
