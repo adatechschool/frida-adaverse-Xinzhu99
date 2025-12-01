@@ -5,6 +5,8 @@ import { refresh, revalidatePath } from "next/cache";
 import { db } from "@/lib/db/drizzle";
 import { redirect } from "next/navigation";
 
+
+//
 //function qui permet d'envoyer les infos formulaire pour les projets
 
 //1- récupérer les data, vérification => Object.fromEntries() permet de récupérer tout le champ formulaire

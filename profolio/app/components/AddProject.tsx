@@ -1,12 +1,10 @@
 "use client";
 import { useEffect, useState, useActionState } from "react";
-import { getCategories } from "../actions/categories";
 import { getClass } from "../actions/classes";
 import submitProject from "../actions/projects";
 
 export default function AddProject() {
   const [showModal, setShowModal] = useState(false);
-  const [categories, setCategories] = useState([]);
   const [classes, setClasses] = useState([]);
 
   //useActionState permet de recevoir le statu et le message du back suite à une action :
@@ -14,12 +12,8 @@ export default function AddProject() {
   const [message, formAction] = useActionState(submitProject, null);
 
   //les actions get sont similaires de APIs externes: utiliser useEffect pour recevoir data
-  const loadCats = async () => {
-      const allCats = await getCategories()
-      setCategories(allCats);
-  }
+
   useEffect(() => {
-    loadCats()
     getClass().then(setClasses);
   }, []);
 
@@ -116,18 +110,10 @@ export default function AddProject() {
                 })}
               </select>
             </div>
-
+            
             <div className="selectPair flex flex-col">
-              <label htmlFor="categories">Projets Ada :</label>
-              <select name="categories" id="categories" required>
-                {categories.map((item) => {
-                  return (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  );
-                })}
-              </select>
+              <label htmlFor="category">Projet Ada :</label>
+
             </div>
 
             <button

@@ -3,6 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import AddProject from "./components/AddProject";
 import { Manrope } from 'next/font/google'
+import SelectCategory from "./components/SelectCategory";
 
 export const metadata: Metadata = {
   title: "Profolio",
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body >
         <div className="nav_bar bg-white shadow-lg flex justify-between items-center p-4 gap-4">
           <Link href="/">Pro-folio</Link>
+          < SelectCategory className="hover: text-pink-400 cursor-pointer"/>
           <AddProject />
 
         </div>
