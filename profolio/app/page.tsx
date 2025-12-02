@@ -25,12 +25,6 @@ export default async function Home() {
     `);
 
   console.log("tous les projest",data.rows);
-  // const params = useSearchParams.get("category")
-  // console.log("params", params)
-
-
-  // const selectedData = data.rows.find((row)=> row.category === "Adaction")
-  // console.log(selectedData)
   return (
     <div><HomepageClient projectsData={data.rows} /></div>
   )

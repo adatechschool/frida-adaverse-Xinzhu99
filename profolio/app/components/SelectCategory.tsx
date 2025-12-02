@@ -19,7 +19,7 @@ export default function SelectCategory () {
        <form onClick={handleClick}>
               {/* <label htmlFor="category">Promo Ada</label> */}
               <select name="category" id="category" required>
-                <option value="tout">Tous les projects</option>
+                <option value="" selected disabled hidden>Tous les projects</option>
                 {categories.map((item) => {
                   return (
                     <option key={item.id} value={item.id}>

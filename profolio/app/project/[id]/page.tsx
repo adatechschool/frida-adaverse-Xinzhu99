@@ -19,8 +19,6 @@ export default async function ProjectDetails({ params }) {
   const project = data[0];
   console.log(project);
 
-  const date = project.projects.published_at?.getMonth();
-  console.log("date", date);
 
   if (project === undefined) {
     return <div>Project undefined</div>;

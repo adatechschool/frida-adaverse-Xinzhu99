@@ -9,7 +9,7 @@ export default function HomepageClient({ projectsData }) {
 
   let filteredData = projectsData
   
-  if (input && input!== "tout") {
+  if (input) {
      filteredData = projectsData.filter(
       (row) => row.catid === parseInt(input)
     );

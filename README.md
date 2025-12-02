@@ -234,6 +234,7 @@ Une **seed** permet d’ajouter des données de base dans la base de données.
 - amélioration de UI homepage
 
 01/12
+- création page card projet : routing dynamique
 - affichage et amélioration UI de la page card projet 
 - menu déroulant intégré au navbar pour afficher différentes catégories de projets : useRouter & useSearchParams
 
