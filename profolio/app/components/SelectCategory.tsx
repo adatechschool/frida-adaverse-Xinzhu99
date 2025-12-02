@@ -18,7 +18,7 @@ export default function SelectCategory () {
     return (
        <form onClick={handleClick}>
               {/* <label htmlFor="category">Promo Ada</label> */}
-              <select name="category" id="category" defaultValue="tout" required>
+              <select name="category" id="category" defaultValue="tout" required className="border-1 py-2 px-5 rounded-4xl hover:bg-pink-300 cursor-pointer ">
                 <option value="tout" >Tous les projects</option>
                 {categories.map((item) => {
                   return (

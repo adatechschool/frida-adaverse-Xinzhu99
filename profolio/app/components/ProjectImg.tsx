@@ -8,12 +8,12 @@ export default function ProjectImg({imgSrc}) {
     <img 
     src="placeholder.jpeg"
     alt="thumbnail"
-    className="w-60"/>
+    />
   ):(
   <img src={imgSrc}
   alt="thumbnail"
   onError={()=>setImgError(true)}
-  className="w-60"
+  
   />
 )}</>;
 }

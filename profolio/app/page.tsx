@@ -26,7 +26,7 @@ export default async function Home() {
 
   console.log("tous les projest",data.rows);
   return (
-    <div><HomepageClient projectsData={data.rows} /></div>
+    <div ><HomepageClient projectsData={data.rows} /></div>
   )
 }
 
