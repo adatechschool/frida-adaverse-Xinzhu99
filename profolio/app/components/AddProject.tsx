@@ -1,11 +1,13 @@
 "use client";
-import { useEffect, useState, useActionState } from "react";
+import { useEffect, useState, useActionState, useRef} from "react";
 import { getClass } from "../actions/classes";
+import { getCategories } from "../actions/categories";
 import submitProject from "../actions/projects";
 
 export default function AddProject() {
   const [showModal, setShowModal] = useState(false);
   const [classes, setClasses] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   //useActionState permet de recevoir le statu et le message du back suite à une action :
   //const [initialVariable, formAction] = useActionState(ationName, initialState)
@@ -15,10 +17,14 @@ export default function AddProject() {
 
   useEffect(() => {
     getClass().then(setClasses);
+    getCategories().then(setCategories);
   }, []);
 
   //utiliser useEffect pour détecter le message et fermer le modal
   useEffect(() => {
+   if(message) {
+    formRef.current?.reset()
+   }
     if (message === "Projet ajouté !") {
       setTimeout(() => {
         setShowModal(false);
@@ -26,19 +32,12 @@ export default function AddProject() {
     }
   }, [message]);
 
-  // const handleSubmit =  async (e) => {
-  //   e.preventDefault()
-  //   const formData = new FormData(e.target)
-  //   const result =  await submitProject(formData)
-  //   console.log(result)
-  //   setMessage(result.message)
-  //   setStatus(result.success)
-  // }
-
+//pour le reset du form
+const formRef = useRef(null)
   return (
     <>
       <button
-        onClick={() => setShowModal(true)} 
+        onClick={() => setShowModal(true)}
         className="bg-black text-white py-2 px-5 rounded-4xl hover:bg-pink-300 cursor-pointer"
       >
         Proposer un projet
@@ -50,20 +49,21 @@ export default function AddProject() {
 
       {showModal && (
         <div
-          className="modalContainer fixed inset-0 bg-black/80 flex flex-col justify-center items-center p-10 z-50"
+          className="modalContainer fixed inset-0 bg-black/50 flex flex-col justify-center items-center p-10 z-50"
           onClick={() => setShowModal(false)}
         >
           <form
             className="form bg-white p-6 rounded-lg max-w-md w-full flex flex-col gap-4"
             onClick={(e) => e.stopPropagation()}
             action={formAction}
+            ref={formRef}
           >
             <h1>Proposer un projet</h1>
             <button
               className="bg-blue-400 p-2 rounded-2xl hover:bg-amber-600 cursor-pointer"
               onClick={() => setShowModal(false)}
             >
-              Fermer
+              🗙
             </button>
 
             <div className="inputPair flex flex-col ">
@@ -110,10 +110,18 @@ export default function AddProject() {
                 })}
               </select>
             </div>
-            
+
             <div className="selectPair flex flex-col">
               <label htmlFor="category">Projet Ada :</label>
-
+              <select name="category" id="category" required>
+                {categories.map((item) => {
+                  return (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
 
             <button

@@ -3,7 +3,7 @@
 import { projects } from "@/lib/db/schema";
 import { refresh, revalidatePath } from "next/cache";
 import { db } from "@/lib/db/drizzle";
-import { redirect } from "next/navigation";
+import { eq } from "drizzle-orm";
 
 
 //
@@ -28,7 +28,7 @@ export default async function submitProject(prevState, formData: FormData) {
         title: (newProject.title).charAt(0).toUpperCase() + (newProject.title).slice(1),
         gitHub_link: newProject.gitHub,
         demo_link: newProject.demo,
-        category_id: parseInt(newProject.categories),
+        category_id: parseInt(newProject.category),
         class_id: parseInt(newProject.classes),
       })
       .returning();
@@ -39,4 +39,24 @@ export default async function submitProject(prevState, formData: FormData) {
       return "Problème API lors de l'ajout du formulaire"
     }
   }
+
+//action pour mettre à jour la date de publication de mes projets
+
+export async function publishProject(formData: FormData) {
+  const projectId = parseInt(formData.get("id"))
+  try {
+    await db.update(projects)
+    .set({ published_at: new Date()})
+    .where(eq(projects.id, projectId))
+    .returning()
+
+    revalidatePath("/")
+
+    return "Date ajoutée !"
+  
+  } catch (error) {
+    return "Problème API lors de la modification"
+  }
+
+}
   

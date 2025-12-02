@@ -2,21 +2,35 @@
 import Link from "next/link";
 import ProjectImg from "./ProjectImg";
 import { useSearchParams } from "next/navigation";
+import { publishProject } from "../actions/projects";
+import { useState } from "react";
 
 export default function HomepageClient({ projectsData }) {
   const params = useSearchParams();
   const input = params.get("category");
 
-  let filteredData = projectsData
-  
-  if (input && input!== "tout") {
-     filteredData = projectsData.filter(
-      (row) => row.catid === parseInt(input)
-    );
+  const [message, SetMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  let filteredData = projectsData;
+
+  if (input && input !== "tout") {
+    filteredData = projectsData.filter((row) => row.catid === parseInt(input));
 
     console.log("filteredData", filteredData);
-  } 
+  }
+  //gestion de bouton Publier :
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //communiquer le formdata
+    const formData = new FormData(e.target);
+    //recevoir le message
+    const result = await publishProject(formData);
+    SetMessage(result);
+    setShowModal(true);
+  };
 
+  //
   return (
     <>
       {filteredData.map((row) => (
@@ -37,9 +51,17 @@ export default function HomepageClient({ projectsData }) {
                 />
                 <div className="textContainer px-4 py-2 ">
                   <h2 className="font-extrabold">{project.name}</h2>
-                  <p className="text-xs text-gray-600">
+                  
+                  {project.date ? (
+                    <p className="text-xs text-gray-600">
                     {new Date(project.date).toLocaleDateString("fr-FR")}
-                  </p>
+                  </p>) :(
+                     <form onSubmit={handleSubmit}>
+                  <input name="id" value={project.id} hidden readOnly />
+                  <button type="submit">Publier</button>
+                </form>
+                 
+                  )}
                 </div>
                 <Link
                   href={`project/${project.id}`}
@@ -47,11 +69,29 @@ export default function HomepageClient({ projectsData }) {
                 >
                   Voir le projet
                 </Link>
+               
               </div>
             ))}
           </div>
         </div>
       ))}
+
+      {showModal && (
+        <div
+          className="modalContainer fixed inset-0 bg-black/50 flex flex-col justify-center items-center p-10 z-50"
+          onClick={() => setShowModal(false)}
+        >
+          <div className=" bg-white p-6 rounded-lg max-w-md w-full flex  gap-4">
+            <p>{message}</p>
+            <button
+              className="bg-blue-400 p-2 rounded-2xl hover:bg-amber-600 cursor-pointer"
+              onClick={() => setShowModal(false)}
+            >
+              🗙
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
