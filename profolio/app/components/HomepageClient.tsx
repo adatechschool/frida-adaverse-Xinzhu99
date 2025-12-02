@@ -9,7 +9,7 @@ export default function HomepageClient({ projectsData }) {
 
   let filteredData = projectsData
   
-  if (input) {
+  if (input && input!== "tout") {
      filteredData = projectsData.filter(
       (row) => row.catid === parseInt(input)
     );
@@ -33,8 +33,7 @@ export default function HomepageClient({ projectsData }) {
                   {project.class}
                 </p>
                 <ProjectImg
-                  src={`${project.url}/blob/main/thumbnail.png?raw=true`}
-                  fallback="/placeholder.jpeg"
+                  imgSrc={`${project.url}/blob/main/thumbnail.png?raw=true`}
                 />
                 <div className="textContainer px-4 py-2 ">
                   <h2 className="font-extrabold">{project.name}</h2>

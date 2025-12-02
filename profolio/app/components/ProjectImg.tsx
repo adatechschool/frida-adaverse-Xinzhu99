@@ -1,14 +1,19 @@
-"use client"
-import { useRef } from "react";
-export default function ProjectImg({ src, fallback }) {
-  const ref = useRef();
+"use client";
+import { useState } from "react";
+export default function ProjectImg({imgSrc}) {
 
-  function handleFallback() {
- // Nullify the error event for subsequent calls
-    ref.current.onError = null;
-    ref.current.src = fallback;
-  }
-
-  return <img className="w-60"alt="thumbnail" ref={ref} src={src} onError={handleFallback} />;
+  const [imgError, setImgError] = useState(false);
+  return <>
+  {imgError ? (
+    <img 
+    src="placeholder.jpeg"
+    alt="thumbnail"
+    className="w-60"/>
+  ):(
+  <img src={imgSrc}
+  alt="thumbnail"
+  onError={()=>setImgError(true)}
+  className="w-60"
+  />
+)}</>;
 }
-

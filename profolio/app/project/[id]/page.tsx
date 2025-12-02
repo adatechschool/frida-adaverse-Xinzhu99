@@ -38,8 +38,7 @@ export default async function ProjectDetails({ params }) {
         <a className=" py-2 px-5 rounded-4xl border-1 hover:bg-pink-300 cursor-pointer" href={`${project.projects.gitHub_link}`}>Lien GitHub</a>
         <a className=" py-2 px-5 rounded-4xl border-1 hover:bg-pink-300 cursor-pointer" href={`${project.projects.demo_link}`}>Lien demo</a>
         <ProjectImg
-          src={`${project.projects.gitHub_link}/blob/main/thumbnail.png?raw=true`}
-          fallback="/placeholder.jpeg"
+          imgSrc={`${project.projects.gitHub_link}/blob/main/thumbnail.png?raw=true`}
         />
       </div>
     );
