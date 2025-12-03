@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 export default function SelectCategory () {
 
     const [categories, setCategories] = useState([])
+    useEffect(( )=> {
+        getCategories().then(setCategories)
+    }, [])
+
+    //utiliser useROuter pour modifier l'url inside un component client 
     const router = useRouter()
 
     function handleClick (e) {
@@ -12,12 +17,9 @@ export default function SelectCategory () {
         console.log(e.target.value)
         router.push(`/?category=${e.target.value}`)
     }
-    useEffect(( )=> {
-        getCategories().then(setCategories)
-    }, [])
+
     return (
        <form onClick={handleClick}>
-              {/* <label htmlFor="category">Promo Ada</label> */}
               <select name="category" id="category" defaultValue="tout" required className="border-1 py-2 px-5 rounded-4xl hover:bg-pink-300 cursor-pointer ">
                 <option value="tout" >Tous les projects</option>
                 {categories.map((item) => {

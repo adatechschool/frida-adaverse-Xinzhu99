@@ -8,16 +8,18 @@ import { useState } from "react";
 
 export default function HomepageClient({ projectsData }) {
   const params = useSearchParams();
-  const input = params.get("category");
+  const option = params.get("category");  //when "/?=category"
 
   const [message, SetMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  //filtrer la data avec le option récupéré de searchParams
   let filteredData = projectsData;
-  if (input && input !== "tout") {
-    filteredData = projectsData.filter((row) => row.catid === parseInt(input));
+  if (option && option !== "tout") {
+    filteredData = projectsData.filter((row) => row.catid === parseInt(option));
   }
 
+  //fonction pour gérer le bouton publier 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -27,7 +29,7 @@ export default function HomepageClient({ projectsData }) {
   };
 
   return (
-    <div className="p-8 space-y-12">
+    <div className="p-15 space-y-12">
       {filteredData.map((row) => (
         <section key={row.category} className="space-y-6">
           <h1 className="text-black text-4xl font-extrabold border-l-8 border-pink-300 pl-4">
@@ -43,13 +45,16 @@ export default function HomepageClient({ projectsData }) {
                 <p className="absolute top-3 right-3 z-10 text-white bg-pink-400 px-2 py-1 rounded-md text-xs shadow-md">
                   {project.class}
                 </p>
-
-                <ProjectImg
+                <div className="imgContainer w-full">
+                  <ProjectImg
                   imgSrc={`${project.url}/blob/main/thumbnail.png?raw=true`}
-                  className="h-56 w-full object-cover"
+                  defaultSrc="test.jpeg"
+                  
                 />
+                </div>
+                
 
-                <div className="px-5 py-4 space-y-1 border-t">
+                <div className="px-5 py-4 space-y-1">
                   <h2 className="font-bold text-lg text-gray-800">{project.name}</h2>
 
                   {project.date ? (
@@ -61,7 +66,7 @@ export default function HomepageClient({ projectsData }) {
                       <input name="id" value={project.id} hidden readOnly />
                       <button
                         type="submit"
-                        className="text-sm bg-pink-300 hover:bg-pink-400 text-white px-3 py-1 rounded-lg shadow"
+                        className="text-sm bg-black hover:bg-pink-400 text-white px-3 py-1 rounded-full shadow"
                       >
                         Publier
                       </button>
@@ -71,9 +76,9 @@ export default function HomepageClient({ projectsData }) {
 
                 <Link
                   href={`project/${project.id}`}
-                  className="block text-center py-3 font-medium text-gray-700 hover:text-pink-400 border-t"
+                  className="block text-center py-3 font-medium text-gray-700 hover:text-pink-400 mb-2 "
                 >
-                 👀 Voir le projet
+                 Voir le projet ➜
                 </Link>
               </div>
             ))}

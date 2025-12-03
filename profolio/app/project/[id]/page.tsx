@@ -24,7 +24,9 @@ export default async function ProjectDetails({ params }) {
     return <div>Project undefined</div>;
   } else {
     return (
-      <div className="card flex flex-col p-4 m-4 gap-2 text-center justify-center items-center rounded-2xl shadow-xl w-1/2">
+      <div className="flex">
+
+      <div className="card flex flex-col p-4 m-4 gap-2 text-center justify-center items-center rounded-2xl shadow-xl w-1/2 mx-auto">
         <h1 className="text-4xl font-extrabold ">{project.projects.title}</h1>
         <p className="text-white bg-pink-300  px-1  ">
           {project.classes.name}
@@ -35,11 +37,16 @@ export default async function ProjectDetails({ params }) {
           {new Date(project.projects.published_at).toLocaleDateString("fe-FR")}{" "}
           · {project.categories?.name}
         </p>
-        <a className=" py-2 px-5 rounded-4xl border-1 hover:bg-pink-300 cursor-pointer" href={`${project.projects.gitHub_link}`}>Lien GitHub</a>
-        <a className=" py-2 px-5 rounded-4xl border-1 hover:bg-pink-300 cursor-pointer" href={`${project.projects.demo_link}`}>Lien demo</a>
         <ProjectImg
           imgSrc={`${project.projects.gitHub_link}/blob/main/thumbnail.png?raw=true`}
+          defaultSrc="../test.jpeg"
         />
+        <div className="linksContainer flex p-4 gap-6">
+
+        <a className=" py-2 px-5 rounded-4xl border-1 hover:bg-pink-300 cursor-pointer" href={`${project.projects.gitHub_link}`}>Lien GitHub</a>
+        <a className=" py-2 px-5 rounded-4xl border-1 hover:bg-pink-300 cursor-pointer" href={`${project.projects.demo_link}`}>Lien demo</a>
+        </div>
+      </div>
       </div>
     );
   }
