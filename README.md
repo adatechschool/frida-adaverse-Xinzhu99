@@ -238,3 +238,8 @@ Une **seed** permet d’ajouter des données de base dans la base de données.
 - affichage et amélioration UI de la page card projet 
 - menu déroulant intégré au navbar pour afficher différentes catégories de projets : useRouter & useSearchParams
 
+02/12
+- amélioration de la méthode de gestion d'image par défault
+- bouton publier pour les projets sans date : CRUD PUT 
+- fix le bug du formulaire et reset 
+- amélioration CSS 
